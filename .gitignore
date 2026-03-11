@@ -1,0 +1,5 @@
+*.pdf
+characterlab.css
+playbooks-app/node_modules/
+playbooks-app/dist/
+.DS_Store
