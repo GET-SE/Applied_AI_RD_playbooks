@@ -1,7 +1,7 @@
 [build]
   base    = "playbooks-app"
   command = "npm run build"
-  publish = "playbooks-app/dist"
+  publish = "dist"
 
 [[redirects]]
   from   = "/*"

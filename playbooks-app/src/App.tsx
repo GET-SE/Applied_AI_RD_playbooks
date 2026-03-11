@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import PlaybookList from './pages/PlaybookList';
 import PlaybookDetail from './pages/PlaybookDetail';
-import playbooksData from './data/playbooks.json';
+import playbooksRaw from './data/playbooks.json';
+
+type TipItem = { type: 'try_this' | 'keep_in_mind' | 'note'; text: string };
+type Playbook = typeof playbooksRaw[0] & { tips_list: TipItem[] };
+const playbooksData = playbooksRaw as unknown as Playbook[];
 
 function App() {
   const [currentRoute, setCurrentRoute] = useState(window.location.hash);
