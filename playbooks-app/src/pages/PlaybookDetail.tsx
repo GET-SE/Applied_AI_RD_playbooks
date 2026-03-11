@@ -171,7 +171,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
           <div className="container">
             <hr className="quote-rule" />
             <blockquote className="full-quote">
-              <p>"{playbook.key_insight}"</p>
+              <p>{playbook.key_insight}</p>
             </blockquote>
             <hr className="quote-rule" />
           </div>
