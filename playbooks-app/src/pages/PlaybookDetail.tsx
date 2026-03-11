@@ -25,7 +25,6 @@ interface Props {
   playbook: Playbook;
 }
 
-// Map pillar name → CSS class
 const PILLAR_CLASS: Record<string, string> = {
   'The Culture':    'pillar-culture',
   'The Bridge':     'pillar-bridge',
@@ -33,26 +32,16 @@ const PILLAR_CLASS: Record<string, string> = {
   'The Visibility': 'pillar-visibility',
 };
 
-// Parse "1. Step Title Rest of text" into { num, title, body }
 function parseStep(raw: string): { num: string; title: string; body: string } {
   const match = raw.match(/^(\d+)\.\s+(.+)$/s);
   if (!match) return { num: '', title: raw, body: '' };
-
   const rest = match[2];
-  // Title ends at the first sentence-ending punctuation followed by a capital, or first newline
   const splitAt = rest.search(/(?<=[.!?])\s+(?=[A-Z])/);
   if (splitAt === -1) {
-    // Heuristic: first 6 words = title
     const words = rest.split(' ');
-    const titleWords = words.slice(0, 6).join(' ');
-    const body = words.slice(6).join(' ');
-    return { num: match[1], title: titleWords, body };
+    return { num: match[1], title: words.slice(0, 6).join(' '), body: words.slice(6).join(' ') };
   }
-  return {
-    num: match[1],
-    title: rest.slice(0, splitAt).trim(),
-    body: rest.slice(splitAt).trim(),
-  };
+  return { num: match[1], title: rest.slice(0, splitAt).trim(), body: rest.slice(splitAt).trim() };
 }
 
 const TipTypeLabel: Record<string, string> = {
@@ -64,7 +53,6 @@ const TipTypeLabel: Record<string, string> = {
 const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
   const pillarClass = PILLAR_CLASS[playbook.pillar] || 'pillar-culture';
 
-  // Related: same pillar, exclude current
   const related = (playbooksData as Playbook[])
     .filter((p) => p.pillar === playbook.pillar && p.id !== playbook.id)
     .slice(0, 3);
@@ -81,17 +69,17 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
       },
       { threshold: 0.08 }
     );
-    document.querySelectorAll('.content-section').forEach((s) => observer.observe(s));
+    document.querySelectorAll('.reveal-section').forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [playbook]);
 
   return (
     <div className={pillarClass}>
-      {/* ── Hero ───────────────────────────────────────────── */}
+
+      {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="playbook-detail-hero">
         <div className="container">
           <a href="#/" className="back-link">← Back to Playbooks</a>
-
           <div className="hero-meta">
             <span className="hero-pillar-badge">
               <span className="hero-pillar-dot" />
@@ -99,81 +87,99 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
             </span>
             <span className="hero-stage-label">{playbook.stage}</span>
           </div>
-
           <h1>{playbook.title}</h1>
           <p className="hero-subtitle">{playbook.subtitle}</p>
-
-          {playbook.key_insight && (
-            <blockquote className="hero-quote">
-              <p>"{playbook.key_insight}"</p>
-            </blockquote>
-          )}
         </div>
       </section>
 
-      {/* ── Main content ───────────────────────────────────── */}
-      <div className="playbook-content">
-
-        {/* The Big Idea */}
-        {playbook.the_big_idea && (
-          <div className="content-section big-idea-block">
-            <div className="section-label">The Big Idea</div>
-            <p>{playbook.the_big_idea}</p>
-          </div>
-        )}
-
-        {/* Why It Matters + Pulse Check */}
-        {playbook.why_it_matters && (
-          <div className="content-section">
-            <div className="section-label">Why It Matters</div>
-            <h2>Why Does This Matter?</h2>
-            <p>{playbook.why_it_matters}</p>
-
-            {playbook.pulse_check && playbook.pulse_check.length > 0 && (
-              <div className="pulse-check">
-                <div className="pulse-check-label">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                  </svg>
-                  Pulse Check
-                </div>
-                <ul>
-                  {playbook.pulse_check.map((q, i) => (
-                    <li key={i}>{q}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* How to Do It */}
-        {playbook.how_to_do_it_list && playbook.how_to_do_it_list.length > 0 && (
-          <div className="content-section">
-            <div className="section-label">How to Do It</div>
-            <h2>Step-by-Step Guide</h2>
-            <div className="steps-container">
-              {playbook.how_to_do_it_list.map((raw, idx) => {
-                const { num, title, body } = parseStep(raw);
-                return (
-                  <div key={idx} className="step-card">
-                    <div className="step-number-bar">{num || idx + 1}</div>
-                    <div className="step-body">
-                      <div className="step-title">{title}</div>
-                      {body && <p className="step-text">{body}</p>}
-                    </div>
-                  </div>
-                );
-              })}
+      {/* ── The Big Idea — full width ──────────────────────────── */}
+      {playbook.the_big_idea && (
+        <div className="big-idea-band reveal-section">
+          <div className="container">
+            <div className="big-idea-block">
+              <div className="section-label">The Big Idea</div>
+              <p>{playbook.the_big_idea}</p>
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Tips for Success */}
-        {playbook.tips_list && playbook.tips_list.length > 0 && (
-          <div className="content-section">
+      {/* ── Key Insight quote — full width ────────────────────── */}
+      {playbook.key_insight && (
+        <div className="quote-band reveal-section">
+          <div className="container">
+            <hr className="quote-rule" />
+            <blockquote className="full-quote">
+              <p>"{playbook.key_insight}"</p>
+            </blockquote>
+            <hr className="quote-rule" />
+          </div>
+        </div>
+      )}
+
+      {/* ── Two-column section ────────────────────────────────── */}
+      {(playbook.why_it_matters || (playbook.how_to_do_it_list && playbook.how_to_do_it_list.length > 0)) && (
+        <div className="two-col-band reveal-section">
+          <div className="container">
+            <div className="two-col-grid">
+
+              {/* Left: Why It Matters + Pulse Check */}
+              {playbook.why_it_matters && (
+                <div className="col-left">
+                  <h2 className="col-heading">Why does this matter?</h2>
+                  <p className="col-body">{playbook.why_it_matters}</p>
+
+                  {playbook.pulse_check && playbook.pulse_check.length > 0 && (
+                    <div className="pulse-check">
+                      <div className="pulse-check-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                        Pulse Check
+                      </div>
+                      <p className="pulse-intro">Think about how this applies to your work. How many of these are true?</p>
+                      <ul>
+                        {playbook.pulse_check.map((q, i) => (
+                          <li key={i}>{q}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Right: How to Do It */}
+              {playbook.how_to_do_it_list && playbook.how_to_do_it_list.length > 0 && (
+                <div className="col-right">
+                  <h2 className="col-heading">How do I put this into practice?</h2>
+                  <div className="steps-container">
+                    {playbook.how_to_do_it_list.map((raw, idx) => {
+                      const { num, title, body } = parseStep(raw);
+                      return (
+                        <div key={idx} className="step-card">
+                          <div className="step-number-bar">{num || idx + 1}</div>
+                          <div className="step-body">
+                            <div className="step-title">{title}</div>
+                            {body && <p className="step-text">{body}</p>}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Tips for Success — full width ─────────────────────── */}
+      {playbook.tips_list && playbook.tips_list.length > 0 && (
+        <div className="tips-band reveal-section">
+          <div className="container">
             <div className="section-label">Tips for Success</div>
-            <h2>Practical Tips</h2>
+            <h2 className="band-heading">Practical Tips</h2>
             <div className="tips-grid">
               {playbook.tips_list.map((tip, i) => (
                 <div key={i} className="tip-card">
@@ -185,11 +191,13 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
               ))}
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Evidence of Impact */}
-        {playbook.evidence_of_impact && (
-          <div className="content-section">
+      {/* ── Evidence of Impact — full width ───────────────────── */}
+      {playbook.evidence_of_impact && (
+        <div className="impact-band reveal-section">
+          <div className="container">
             <div className="impact-card">
               <div className="impact-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -203,12 +211,12 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* ── Related Playbooks ───────────────────────────────── */}
+      {/* ── Related Playbooks ──────────────────────────────────── */}
       {related.length > 0 && (
-        <section className="related-section">
+        <section className="related-section reveal-section">
           <div className="container">
             <h2>More from {playbook.pillar}</h2>
             <div className="related-grid">
@@ -223,6 +231,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
           </div>
         </section>
       )}
+
     </div>
   );
 };

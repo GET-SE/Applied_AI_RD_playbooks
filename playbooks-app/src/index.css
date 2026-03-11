@@ -323,6 +323,112 @@ header .container {
   transform: translateX(4px);
 }
 
+/* ─── Detail Page: Band layout ──────────────────────────── */
+
+/* Each section is a full-width "band" */
+.big-idea-band,
+.quote-band,
+.two-col-band,
+.tips-band,
+.impact-band {
+  padding: 3.5rem 0;
+}
+
+.big-idea-band {
+  background: #FFFFFF;
+}
+
+/* Quote band — mirrors the Character Lab full-width quote above the two-col */
+.quote-band {
+  background: #FFFFFF;
+  padding: 2.5rem 0;
+}
+
+.quote-rule {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.25rem;
+}
+
+.full-quote {
+  max-width: 860px;
+  margin: 0 auto 2.25rem;
+  text-align: center;
+}
+
+.full-quote p {
+  font-size: 1.7rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--pillar-color, var(--color-primary));
+  line-height: 1.45;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Two-column band */
+.two-col-band {
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.col-left,
+.col-right {
+  min-width: 0;
+}
+
+.col-heading {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 1rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+.col-body {
+  font-size: 1rem;
+  color: var(--color-text-main);
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+/* Vertical divider between columns */
+.col-right {
+  padding-left: 2rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Tips and impact bands */
+.tips-band {
+  background: var(--color-bg-panel);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.impact-band {
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.band-heading {
+  font-size: 1.5rem;
+  color: var(--color-text-main);
+  margin-bottom: 1.5rem;
+  margin-top: 0.4rem;
+}
+
+/* Reveal animation (replaces content-section) */
+.reveal-section {
+  opacity: 0;
+}
+
 /* ─── Detail Page: Hero ──────────────────────────────────── */
 .playbook-detail-hero {
   padding: 4rem 0 3rem;
@@ -397,17 +503,6 @@ header .container {
 }
 
 /* ─── Detail Page: Content ───────────────────────────────── */
-.playbook-content {
-  max-width: var(--max-width-reading);
-  margin: 0 auto;
-  padding: 4rem 2rem 6rem;
-}
-
-.content-section {
-  margin-bottom: 4rem;
-  opacity: 0;
-}
-
 .section-label {
   display: flex;
   align-items: center;
@@ -461,6 +556,13 @@ header .container {
   letter-spacing: 0.08em;
   color: var(--pillar-color, var(--color-primary));
   margin-bottom: 1rem;
+}
+
+.pulse-intro {
+  font-size: 0.92rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.85rem;
+  line-height: 1.55;
 }
 
 .pulse-check ul {
@@ -723,15 +825,29 @@ header .container {
 .back-link:hover { color: var(--color-primary); }
 
 /* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .two-col-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .col-right {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding-top: 2.5rem;
+  }
+  .full-quote p { font-size: 1.3rem; }
+}
+
 @media (max-width: 768px) {
   h1 { font-size: 2.2rem; }
   .playbook-hero { padding: 3.5rem 0 2.5rem; }
-  .playbook-content { padding: 2.5rem 1.25rem 4rem; }
   .playbook-detail-hero { padding: 2.5rem 0 2rem; }
   .playbook-detail-hero h1 { font-size: 2rem; }
   .tips-grid { grid-template-columns: 1fr; }
   .impact-card { flex-direction: column; gap: 1rem; }
   .related-grid { grid-template-columns: 1fr 1fr; }
+  .big-idea-band, .quote-band, .two-col-band, .tips-band, .impact-band { padding: 2.5rem 0; }
 }
 
 @media (max-width: 480px) {
