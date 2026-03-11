@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import playbooksData from '../data/playbooks.json';
+import MathText from '../components/MathText';
 
 interface TipItem {
   type: 'try_this' | 'keep_in_mind' | 'note';
@@ -33,15 +34,75 @@ const PILLAR_CLASS: Record<string, string> = {
 };
 
 function parseStep(raw: string): { num: string; title: string; body: string } {
-  const match = raw.match(/^(\d+)\.\s+(.+)$/s);
+  const match = raw.match(/^(\d+)\.\s+([\s\S]+)$/);
   if (!match) return { num: '', title: raw, body: '' };
+
+  const num = match[1];
   const rest = match[2];
-  const splitAt = rest.search(/(?<=[.!?])\s+(?=[A-Z])/);
-  if (splitAt === -1) {
-    const words = rest.split(' ');
-    return { num: match[1], title: words.slice(0, 6).join(' '), body: words.slice(6).join(' ') };
+
+  // Strategy 1: stage-labelled steps → "Title (Discovery|Development|Validation|Impact) body…"
+  const stageMatch = rest.match(/^(.+?\((?:Discovery|Development|Validation|Impact)\))\s+([\s\S]+)$/);
+  if (stageMatch) {
+    return { num, title: stageMatch[1].trim(), body: stageMatch[2].trim() };
   }
-  return { num: match[1], title: rest.slice(0, splitAt).trim(), body: rest.slice(splitAt).trim() };
+
+  // Strategy 2: non-labelled steps — walk word-by-word until title phrase ends
+  const words = rest.split(' ');
+  const titleWords: string[] = [];
+  let bodyStart = words.length;
+
+  for (let i = 0; i < words.length - 1; i++) {
+    titleWords.push(words[i]);
+    if (titleWords.length < 3) continue;
+
+    const prev = titleWords[titleWords.length - 1];
+    const curr = words[i + 1];
+    const next = words[i + 2] ?? '';
+
+    if (/^[A-Z"']/.test(prev) && /^[A-Z"']/.test(curr) && /^[a-z]/.test(next)) {
+      bodyStart = i + 1;
+      break;
+    }
+  }
+
+  return {
+    num,
+    title: words.slice(0, bodyStart).join(' ').trim(),
+    body: words.slice(bodyStart).join(' ').trim(),
+  };
+}
+
+// Render a bullet — bold the "Label:" prefix, apply MathText to content
+function BulletItem({ text }: { text: string }) {
+  const colonIdx = text.indexOf(':');
+  if (colonIdx > 0 && colonIdx < 40) {
+    const label = text.slice(0, colonIdx);
+    const rest = text.slice(colonIdx + 1).trim();
+    return (
+      <li>
+        <strong>{label}:</strong>{rest ? <> <MathText text={rest} /></> : null}
+      </li>
+    );
+  }
+  return <li><MathText text={text} /></li>;
+}
+
+// Split body on ● markers → lead paragraph + sub-bullet list; apply MathText throughout
+function renderStepBody(body: string) {
+  const parts = body.split(/●\s*/);
+  const lead = parts[0].trim();
+  const bullets = parts.slice(1).map(b => b.trim()).filter(Boolean);
+
+  return (
+    <>
+      {lead && <p className="step-text"><MathText text={lead} /></p>}
+      {bullets.length > 0 && (
+        <ul className="step-bullets">
+          {bullets.map((b, i) => <BulletItem key={i} text={b} />)}
+        </ul>
+      )}
+    </>
+  );
 }
 
 const TipTypeLabel: Record<string, string> = {
@@ -98,7 +159,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
           <div className="container">
             <div className="big-idea-block">
               <div className="section-label">The Big Idea</div>
-              <p>{playbook.the_big_idea}</p>
+              <p><MathText text={playbook.the_big_idea} /></p>
             </div>
           </div>
         </div>
@@ -127,7 +188,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
               {playbook.why_it_matters && (
                 <div className="col-left">
                   <h2 className="col-heading">Why does this matter?</h2>
-                  <p className="col-body">{playbook.why_it_matters}</p>
+                  <p className="col-body"><MathText text={playbook.why_it_matters} /></p>
 
                   {playbook.pulse_check && playbook.pulse_check.length > 0 && (
                     <div className="pulse-check">
@@ -140,7 +201,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
                       <p className="pulse-intro">Think about how this applies to your work. How many of these are true?</p>
                       <ul>
                         {playbook.pulse_check.map((q, i) => (
-                          <li key={i}>{q}</li>
+                          <li key={i}><MathText text={q} /></li>
                         ))}
                       </ul>
                     </div>
@@ -159,8 +220,8 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
                         <div key={idx} className="step-card">
                           <div className="step-number-bar">{num || idx + 1}</div>
                           <div className="step-body">
-                            <div className="step-title">{title}</div>
-                            {body && <p className="step-text">{body}</p>}
+                            <div className="step-title"><MathText text={title} /></div>
+                            {body && renderStepBody(body)}
                           </div>
                         </div>
                       );
@@ -186,7 +247,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
                   <div className={`tip-card-type ${tip.type}`}>
                     {TipTypeLabel[tip.type] ?? tip.type}
                   </div>
-                  <p>{tip.text}</p>
+                  <p><MathText text={tip.text} /></p>
                 </div>
               ))}
             </div>
@@ -207,7 +268,7 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
               </div>
               <div className="impact-body">
                 <h3>Evidence of Impact</h3>
-                <p>{playbook.evidence_of_impact}</p>
+                <p><MathText text={playbook.evidence_of_impact} /></p>
               </div>
             </div>
           </div>
