@@ -13,30 +13,23 @@ interface Props {
 }
 
 const STAGES = [
-  'Stage 1: Discovery',
-  'Stage 2: Development',
-  'Stage 3: Validation',
-  'Stage 4: Impact',
+  'Stage 1: Setup',
+  'Stage 2: Build',
+  'Stage 3: Ship',
 ];
 
 const PILLARS = [
   {
-    key: 'The Culture',
-    subtitle: 'Interpersonal',
-    goal: 'Motivation & Career Growth',
+    key: 'The Talent & Culture',
+    subtitle: 'People',
+    goal: 'Team Formation & Momentum',
     cssClass: 'pillar-culture',
   },
   {
-    key: 'The Bridge',
-    subtitle: 'Intellectual',
-    goal: 'Translation & Knowledge Transfer',
-    cssClass: 'pillar-bridge',
-  },
-  {
-    key: 'The Craft',
-    subtitle: 'Operational',
-    goal: 'Engineering Excellence',
-    cssClass: 'pillar-craft',
+    key: 'The Tech Handover',
+    subtitle: 'Technical',
+    goal: 'Integration & Delivery',
+    cssClass: 'pillar-handover',
   },
   {
     key: 'The Visibility',
@@ -52,15 +45,15 @@ const PlaybookList: React.FC<Props> = ({ playbooks }) => {
       {/* Hero */}
       <section className="playbook-hero animate-fade-in stagger-1">
         <div className="container">
-          <h1>The L2M Engine Playbooks</h1>
+          <h1>Lean Applied AI R&amp;D Framework</h1>
           <p>
-            Research-based guides to bridge the gap between academic innovation and
-            industry-grade solutions under the Applied AI R&amp;D program.
+            The Accelerator Model — practical playbooks for standing up an AI R&amp;D team,
+            delivering production-ready solutions, and proving impact fast.
           </p>
         </div>
       </section>
 
-      {/* Matrix: 4 pillar columns × 4 stage rows */}
+      {/* Matrix: 3 pillar columns × 3 stage rows */}
       <section className="matrix-section animate-fade-in stagger-2">
         <div className="container">
 

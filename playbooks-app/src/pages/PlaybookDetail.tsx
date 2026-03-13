@@ -7,6 +7,26 @@ interface TipItem {
   text: string;
 }
 
+interface SopDoc {
+  id: string;
+  name: string;
+  purpose: string;
+}
+
+interface SopStep {
+  num: number;
+  title: string;
+  stage: string;
+  items: string[];
+}
+
+interface Sop {
+  docs: SopDoc[];
+  steps: SopStep[];
+  success_criteria: string[];
+  safeguards: string[];
+}
+
 interface Playbook {
   id: string;
   title: string;
@@ -20,6 +40,7 @@ interface Playbook {
   key_insight: string;
   evidence_of_impact: string;
   pulse_check?: string[];
+  sop?: Sop;
 }
 
 interface Props {
@@ -27,10 +48,9 @@ interface Props {
 }
 
 const PILLAR_CLASS: Record<string, string> = {
-  'The Culture':    'pillar-culture',
-  'The Bridge':     'pillar-bridge',
-  'The Craft':      'pillar-craft',
-  'The Visibility': 'pillar-visibility',
+  'The Talent & Culture': 'pillar-culture',
+  'The Tech Handover':    'pillar-handover',
+  'The Visibility':       'pillar-visibility',
 };
 
 function parseStep(raw: string): { num: string; title: string; body: string } {
@@ -40,8 +60,8 @@ function parseStep(raw: string): { num: string; title: string; body: string } {
   const num = match[1];
   const rest = match[2];
 
-  // Strategy 1: stage-labelled steps → "Title (Discovery|Development|Validation|Impact) body…"
-  const stageMatch = rest.match(/^(.+?\((?:Discovery|Development|Validation|Impact)\))\s+([\s\S]+)$/);
+  // Strategy 1: stage-labelled steps → "Title (Stage Label) body…"
+  const stageMatch = rest.match(/^(.+?\((?:Discovery|Development|Validation|Impact|Setup|Build|Ship|Scouting|Onboarding)\))\s+([\s\S]+)$/);
   if (stageMatch) {
     return { num, title: stageMatch[1].trim(), body: stageMatch[2].trim() };
   }
@@ -271,6 +291,114 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
                 <p><MathText text={playbook.evidence_of_impact} /></p>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Implementation Plan (SOP) ─────────────────────────── */}
+      {playbook.sop && (
+        <div className="sop-band reveal-section">
+          <div className="container">
+            <div className="sop-header">
+              <div className="section-label">Standard Operating Procedure</div>
+              <h2 className="band-heading">Implementation Plan</h2>
+            </div>
+
+            {/* Required Docs table */}
+            {playbook.sop.docs.length > 0 && (
+              <div className="sop-docs">
+                <h3 className="sop-sub-heading">Required Documentation Stack</h3>
+                <table className="sop-table">
+                  <thead>
+                    <tr><th>Document</th><th>Purpose</th></tr>
+                  </thead>
+                  <tbody>
+                    {playbook.sop.docs.map((doc) => (
+                      <tr key={doc.id}>
+                        <td><strong>{doc.id}:</strong> {doc.name}</td>
+                        <td>{doc.purpose}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Steps */}
+            {playbook.sop.steps.length > 0 && (
+              <div className="sop-steps">
+                <h3 className="sop-sub-heading">Step-by-Step Implementation Workflow</h3>
+                <div className="sop-steps-grid">
+                  {playbook.sop.steps.map((step) => (
+                    <div key={step.num} className="sop-step-card">
+                      <div className="sop-step-num">{step.num}</div>
+                      <div className="sop-step-content">
+                        <div className="sop-step-title">
+                          {step.title}
+                          {step.stage && <span className="sop-step-stage">{step.stage}</span>}
+                        </div>
+                        {step.items.length > 0 && (
+                          <ul className="sop-step-items">
+                            {step.items.map((item, i) => {
+                              const colonIdx = item.indexOf(':');
+                              if (colonIdx > 0 && colonIdx < 30) {
+                                const label = item.slice(0, colonIdx);
+                                const rest = item.slice(colonIdx + 1).trim();
+                                return (
+                                  <li key={i}>
+                                    <strong>{label}:</strong>{rest ? <> <MathText text={rest} /></> : null}
+                                  </li>
+                                );
+                              }
+                              return <li key={i}><MathText text={item} /></li>;
+                            })}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Success Criteria & Safeguards side by side */}
+            {(playbook.sop.success_criteria.length > 0 || playbook.sop.safeguards.length > 0) && (
+              <div className="sop-bottom-grid">
+                {playbook.sop.success_criteria.length > 0 && (
+                  <div className="sop-criteria">
+                    <h3 className="sop-sub-heading">Success Criteria & Monitoring</h3>
+                    <ul>
+                      {playbook.sop.success_criteria.map((c, i) => {
+                        const colonIdx = c.indexOf(':');
+                        if (colonIdx > 0 && colonIdx < 40) {
+                          const label = c.slice(0, colonIdx);
+                          const rest = c.slice(colonIdx + 1).trim();
+                          return <li key={i}><strong>{label}:</strong>{rest ? <> <MathText text={rest} /></> : null}</li>;
+                        }
+                        return <li key={i}><MathText text={c} /></li>;
+                      })}
+                    </ul>
+                  </div>
+                )}
+                {playbook.sop.safeguards.length > 0 && (
+                  <div className="sop-safeguards">
+                    <h3 className="sop-sub-heading">Key Implementation Safeguards</h3>
+                    <ul>
+                      {playbook.sop.safeguards.map((s, i) => {
+                        const colonIdx = s.indexOf(':');
+                        if (colonIdx > 0 && colonIdx < 40) {
+                          const label = s.slice(0, colonIdx);
+                          const rest = s.slice(colonIdx + 1).trim();
+                          return <li key={i}><strong>{label}:</strong>{rest ? <> <MathText text={rest} /></> : null}</li>;
+                        }
+                        return <li key={i}><MathText text={s} /></li>;
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       )}

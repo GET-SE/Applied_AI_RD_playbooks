@@ -12,6 +12,8 @@
   --pillar-culture-bg: #EBF5FC;
   --pillar-bridge-color: #7B2D8B;
   --pillar-bridge-bg: #F3E8F7;
+  --pillar-handover-color: #C0392B;
+  --pillar-handover-bg: #FDECEA;
   --pillar-craft-color: #F37021;
   --pillar-craft-bg: #FEF0E7;
   --pillar-visibility-color: #2E7D32;
@@ -189,6 +191,7 @@ header .container {
 /* ─── Pillar theming (shared by list + detail) ───────────── */
 .pillar-culture    { --pillar-color: var(--pillar-culture-color);    --pillar-bg: var(--pillar-culture-bg);    --pillar-border: #BDD9EE; }
 .pillar-bridge     { --pillar-color: var(--pillar-bridge-color);     --pillar-bg: var(--pillar-bridge-bg);     --pillar-border: #D8B8E0; }
+.pillar-handover   { --pillar-color: var(--pillar-handover-color);   --pillar-bg: var(--pillar-handover-bg);   --pillar-border: #F0B3AD; }
 .pillar-craft      { --pillar-color: var(--pillar-craft-color);      --pillar-bg: var(--pillar-craft-bg);      --pillar-border: #F9C9A3; }
 .pillar-visibility { --pillar-color: var(--pillar-visibility-color); --pillar-bg: var(--pillar-visibility-bg); --pillar-border: #B2DFBB; }
 
@@ -201,7 +204,7 @@ header .container {
 /* CSS Grid: 5 columns (stage label + 4 pillars), auto rows */
 .matrix-grid {
   display: grid;
-  grid-template-columns: 140px repeat(4, 1fr);
+  grid-template-columns: 140px repeat(3, 1fr);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -290,9 +293,9 @@ header .container {
   border-right: none;
 }
 
-/* Remove bottom border on last row */
-.matrix-grid > .matrix-row-label:nth-last-child(5),
-.matrix-grid > .matrix-cell:nth-last-child(-n+4) {
+/* Remove bottom border on last row (1 label + 3 pillar cells = 4 items) */
+.matrix-grid > .matrix-row-label:nth-last-child(4),
+.matrix-grid > .matrix-cell:nth-last-child(-n+3) {
   border-bottom: none;
 }
 
@@ -917,6 +920,199 @@ header .container {
   margin: 0;
 }
 
+/* ─── Implementation Plan (SOP) ─────────────────────────── */
+.sop-band {
+  background: white;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 4rem 0;
+}
+
+.sop-band .container {
+  max-width: var(--max-width-reading);
+}
+
+.sop-header {
+  margin-bottom: 2rem;
+}
+
+.sop-sub-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem 0;
+}
+
+/* Docs table */
+.sop-docs {
+  margin-bottom: 2.5rem;
+}
+
+.sop-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.sop-table th,
+.sop-table td {
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+}
+
+.sop-table th {
+  background: var(--pillar-bg, #F0F7FF);
+  color: var(--pillar-color, var(--color-text-main));
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sop-table td:first-child {
+  white-space: nowrap;
+  font-size: 0.88rem;
+  background: var(--color-bg-panel);
+}
+
+/* Steps grid */
+.sop-steps {
+  margin-bottom: 2.5rem;
+}
+
+.sop-steps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.sop-step-card {
+  display: flex;
+  gap: 0.9rem;
+  background: var(--color-bg-panel);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+}
+
+.sop-step-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--pillar-color, var(--color-primary));
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+.sop-step-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sop-step-title {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sop-step-stage {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pillar-color, var(--color-primary));
+  background: var(--pillar-bg, #EEE);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+}
+
+.sop-step-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sop-step-items li {
+  padding-left: 0.85rem;
+  position: relative;
+}
+
+.sop-step-items li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--pillar-color, var(--color-primary));
+  font-weight: 600;
+}
+
+/* Bottom grid: criteria + safeguards */
+.sop-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.sop-criteria,
+.sop-safeguards {
+  background: var(--color-bg-panel);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.4rem;
+}
+
+.sop-criteria ul,
+.sop-safeguards ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.87rem;
+  color: var(--color-text-body);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sop-criteria li,
+.sop-safeguards li {
+  padding-left: 1rem;
+  position: relative;
+}
+
+.sop-criteria li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--pillar-color, #2E7D32);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.sop-safeguards li::before {
+  content: '⚑';
+  position: absolute;
+  left: 0;
+  color: var(--pillar-color, var(--color-primary));
+  font-size: 0.75rem;
+}
+
 /* ─── Related Playbooks ──────────────────────────────────── */
 .related-section {
   background: var(--color-bg-panel);
@@ -1020,6 +1216,8 @@ header .container {
   .impact-card { flex-direction: column; gap: 1rem; }
   .related-grid { grid-template-columns: 1fr 1fr; }
   .big-idea-band, .quote-band, .two-col-band, .tips-band, .impact-band { padding: 2.5rem 0; }
+  .sop-steps-grid { grid-template-columns: 1fr; }
+  .sop-bottom-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
