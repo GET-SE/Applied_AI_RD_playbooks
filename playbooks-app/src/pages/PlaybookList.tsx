@@ -45,7 +45,7 @@ const PlaybookList: React.FC<Props> = ({ playbooks }) => {
       {/* Hero */}
       <section className="playbook-hero animate-fade-in stagger-1">
         <div className="container">
-          <h1>Lean Applied AI R&amp;D Framework</h1>
+          <h1>Applied AI R&amp;D Framework</h1>
           <p>
             The Accelerator Model — practical playbooks for standing up an AI R&amp;D team,
             delivering production-ready solutions, and proving impact fast.
@@ -100,7 +100,11 @@ const PlaybookList: React.FC<Props> = ({ playbooks }) => {
                             </span>
                           </div>
                         </a>
-                      ) : null}
+                      ) : (
+                        <div className="matrix-cell-empty">
+                          <span>Integrated in Build</span>
+                        </div>
+                      )}
                     </div>
                   );
                 })}

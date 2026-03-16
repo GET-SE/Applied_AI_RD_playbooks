@@ -323,6 +323,22 @@ header .container {
   opacity: 1;
 }
 
+.matrix-cell-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1rem;
+}
+
+.matrix-cell-empty span {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--pillar-color, var(--color-text-muted));
+  opacity: 0.55;
+  text-align: center;
+}
+
 .matrix-card-body {
   padding: 1rem 1.1rem;
   flex: 1;
