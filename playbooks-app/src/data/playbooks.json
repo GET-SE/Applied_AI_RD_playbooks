@@ -39,22 +39,26 @@
         {
           "id": "Doc 1",
           "name": "The Hybrid JD",
-          "purpose": "A job description that emphasizes theory-to-code translation."
+          "purpose": "A job description that emphasizes theory-to-code translation.",
+          "file": "The Hybrid JD.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Bridge Interview Rubric",
-          "purpose": "A standardized evaluation form for the paper-to-code task."
+          "purpose": "A standardized evaluation form for the paper-to-code task.",
+          "file": "The Bridge Interview Rubric.docx"
         },
         {
           "id": "Doc 3",
           "name": "The 60/20/20 Cultural Contract",
-          "purpose": "A 1-page agreement signed by the intern during onboarding."
+          "purpose": "A 1-page agreement signed by the intern during onboarding.",
+          "file": "The 60-20-20 Cultural Contract.docx"
         },
         {
           "id": "Doc 4",
           "name": "The Horizon Goal Sheet",
-          "purpose": "A document capturing the intern's long-term career ambition."
+          "purpose": "A document capturing the intern's long-term career ambition.",
+          "file": "The Horizon Goal Sheet.docx"
         }
       ],
       "steps": [
@@ -150,22 +154,26 @@
         {
           "id": "Doc 1",
           "name": "Artifact Inventory",
-          "purpose": "A checklist of all papers, repositories, datasets, and weights."
+          "purpose": "A checklist of all papers, repositories, datasets, and weights.",
+          "file": "Artifact Inventory.docx"
         },
         {
           "id": "Doc 2",
           "name": "Reproducibility Report",
-          "purpose": "Documentation of the environment setup and execution results."
+          "purpose": "Documentation of the environment setup and execution results.",
+          "file": "Reproducibility Report.docx"
         },
         {
           "id": "Doc 3",
           "name": "Gap Analysis Memo",
-          "purpose": "Comparison of research claims vs. practical performance."
+          "purpose": "Comparison of research claims vs. practical performance.",
+          "file": "Gap Analysis Memo.docx"
         },
         {
           "id": "Doc 4",
           "name": "Frozen Baseline Spec",
-          "purpose": "The \"clean\" starting point documentation for the engineering team."
+          "purpose": "The \"clean\" starting point documentation for the engineering team.",
+          "file": "Frozen Baseline Spec.docx"
         }
       ],
       "steps": [
@@ -265,27 +273,32 @@
         {
           "id": "Doc 1",
           "name": "Intake Discovery Form",
-          "purpose": "Capturing the client's business pain point and data availability."
+          "purpose": "Capturing the client's business pain point and data availability.",
+          "file": "Intake Discovery Form.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Value Metric",
-          "purpose": "A 1-sentence \"North Star\" agreed upon by the Client and Researcher."
+          "purpose": "A 1-sentence \"North Star\" agreed upon by the Client and Researcher.",
+          "file": "The Value Metric.docx"
         },
         {
           "id": "Doc 3",
           "name": "The Project Charter",
-          "purpose": "The master agreement summarizing goals, participants, and timelines."
+          "purpose": "The master agreement summarizing goals, participants, and timelines.",
+          "file": "The Project Charter.docx"
         },
         {
           "id": "Doc 4",
           "name": "Role Boundary Matrix",
-          "purpose": "A RACI-style table defining Lead, Support, or \"Not Responsible.\""
+          "purpose": "A RACI-style table defining Lead, Support, or \"Not Responsible.\"",
+          "file": "Role Boundary Matrix.docx"
         },
         {
           "id": "Doc 5",
           "name": "The KPI Scorecard",
-          "purpose": "A definition of Product (Technical) and Team (Cultural) success metrics."
+          "purpose": "A definition of Product (Technical) and Team (Cultural) success metrics.",
+          "file": "The KPI Scorecard.docx"
         }
       ],
       "steps": [
@@ -383,22 +396,26 @@
         {
           "id": "Doc 1",
           "name": "The Master Calendar",
-          "purpose": "A standardized weekly template shared across the lab."
+          "purpose": "A standardized weekly template shared across the lab.",
+          "file": "The Master Calendar.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Thursday Learning Goal",
-          "purpose": "A brief morning commitment (Slack/Email) for the 20% growth day."
+          "purpose": "A brief morning commitment (Slack/Email) for the 20% growth day.",
+          "file": "The Thursday Learning Goal.docx"
         },
         {
           "id": "Doc 3",
           "name": "The Weekly Learning Log",
-          "purpose": "A documented summary of progress made during protected time."
+          "purpose": "A documented summary of progress made during protected time.",
+          "file": "The Weekly Learning Log.docx"
         },
         {
           "id": "Doc 4",
           "name": "The Monthly \"Show & Tell\" Agenda",
-          "purpose": "A template for showcasing how learning impacted project delivery."
+          "purpose": "A template for showcasing how learning impacted project delivery.",
+          "file": "The Monthly \"Show & Tell\" Agenda.docx"
         }
       ],
       "steps": [
@@ -496,22 +513,26 @@
         {
           "id": "Doc 1",
           "name": "The Sprint Backlog",
-          "purpose": "A prioritized list of technical tickets (e.g., in Jira, Linear, or GitHub)."
+          "purpose": "A prioritized list of technical tickets (e.g., in Jira, Linear, or GitHub).",
+          "file": "The Sprint Backlog.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Sprint Goal",
-          "purpose": "A one-sentence definition of what the team is shipping this cycle."
+          "purpose": "A one-sentence definition of what the team is shipping this cycle.",
+          "file": "The Sprint Goal.docx"
         },
         {
           "id": "Doc 3",
           "name": "The Definition of Done (DoD)",
-          "purpose": "A checklist of quality standards every ticket must meet before closing."
+          "purpose": "A checklist of quality standards every ticket must meet before closing.",
+          "file": "The Definition of Done (DoD).docx"
         },
         {
           "id": "Doc 4",
           "name": "The Build Changelog",
-          "purpose": "A summary of features and fixes added to the current deployable build."
+          "purpose": "A summary of features and fixes added to the current deployable build.",
+          "file": "The Build Changelog.docx"
         }
       ],
       "steps": [
@@ -611,22 +632,26 @@
         {
           "id": "Doc 1",
           "name": "Automated Pulse Dashboard",
-          "purpose": "A real-time view of ticket velocity, code commits, and learning logs."
+          "purpose": "A real-time view of ticket velocity, code commits, and learning logs.",
+          "file": "Automated Pulse Dashboard.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Tactical Sync Agenda",
-          "purpose": "A strict 15-minute template focused on blockers and growth."
+          "purpose": "A strict 15-minute template focused on blockers and growth.",
+          "file": "The Tactical Sync Agenda.docx"
         },
         {
           "id": "Doc 3",
           "name": "The Exception Log",
-          "purpose": "A list of \"Red/Yellow\" flags that require immediate PM intervention."
+          "purpose": "A list of \"Red/Yellow\" flags that require immediate PM intervention.",
+          "file": "The Exception Log.docx"
         },
         {
           "id": "Doc 4",
           "name": "The Weekly Status Update",
-          "purpose": "A glanceable \"Traffic Light\" report for stakeholders."
+          "purpose": "A glanceable \"Traffic Light\" report for stakeholders.",
+          "file": "The Weekly Status Update.docx"
         }
       ],
       "steps": [
@@ -725,22 +750,26 @@
         {
           "id": "Doc 1",
           "name": "The Scientific Delta Report",
-          "purpose": "A comparison of production outputs vs. the Frozen Baseline."
+          "purpose": "A comparison of production outputs vs. the Frozen Baseline.",
+          "file": "The Scientific Delta Report.docx"
         },
         {
           "id": "Doc 2",
           "name": "Deployment Configuration (IAC)",
-          "purpose": "Hardened Docker/Kubernetes files and environment variable specs."
+          "purpose": "Hardened Docker/Kubernetes files and environment variable specs.",
+          "file": "Deployment Configuration (IAC).docx"
         },
         {
           "id": "Doc 3",
           "name": "System Performance Log",
-          "purpose": "Results of stress tests, latency benchmarks, and resource usage."
+          "purpose": "Results of stress tests, latency benchmarks, and resource usage.",
+          "file": "System Performance Log.docx"
         },
         {
           "id": "Doc 4",
           "name": "The Client Handover Kit",
-          "purpose": "A \"Service Manual\" for the client including credentials and recovery steps."
+          "purpose": "A \"Service Manual\" for the client including credentials and recovery steps.",
+          "file": "The Client Handover Kit.docx"
         }
       ],
       "steps": [
@@ -838,22 +867,26 @@
         {
           "id": "Doc 1",
           "name": "The Strategic Dashboard",
-          "purpose": "A master view showing the \"Traffic Light\" status and KPIs of all active projects."
+          "purpose": "A master view showing the \"Traffic Light\" status and KPIs of all active projects.",
+          "file": "The Strategic Dashboard.docx"
         },
         {
           "id": "Doc 2",
           "name": "The Monthly Executive Summary",
-          "purpose": "A one-page narrative highlighting major wins, critical risks, and resource needs."
+          "purpose": "A one-page narrative highlighting major wins, critical risks, and resource needs.",
+          "file": "The Monthly Executive Summary.docx"
         },
         {
           "id": "Doc 3",
           "name": "Impact & ROI Report",
-          "purpose": "A summary of validated outcomes (e.g., cost savings, talent transitions, IP generated)."
+          "purpose": "A summary of validated outcomes (e.g., cost savings, talent transitions, IP generated).",
+          "file": "Impact & ROI Report.docx"
         },
         {
           "id": "Doc 4",
           "name": "Strategic Review Agenda",
-          "purpose": "A template for the 30-minute monthly leadership sync."
+          "purpose": "A template for the 30-minute monthly leadership sync.",
+          "file": "Strategic Review Agenda.docx"
         }
       ],
       "steps": [

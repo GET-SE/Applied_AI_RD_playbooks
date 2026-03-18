@@ -11,6 +11,7 @@ interface SopDoc {
   id: string;
   name: string;
   purpose: string;
+  file?: string;
 }
 
 interface SopStep {
@@ -310,13 +311,25 @@ const PlaybookDetail: React.FC<Props> = ({ playbook }) => {
                 <h3 className="sop-sub-heading">Required Documentation Stack</h3>
                 <table className="sop-table">
                   <thead>
-                    <tr><th>Document</th><th>Purpose</th></tr>
+                    <tr><th>Document</th><th>Purpose</th><th></th></tr>
                   </thead>
                   <tbody>
                     {playbook.sop.docs.map((doc) => (
                       <tr key={doc.id}>
                         <td><strong>{doc.id}:</strong> {doc.name}</td>
                         <td>{doc.purpose}</td>
+                        <td className="sop-table-dl-cell">
+                          {doc.file && (
+                            <a
+                              href={`/docs/${encodeURIComponent(doc.file)}`}
+                              download={doc.file}
+                              className="sop-dl-btn"
+                              title={`Download ${doc.name}`}
+                            >
+                              ⬇ Download
+                            </a>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

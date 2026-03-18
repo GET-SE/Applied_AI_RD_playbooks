@@ -993,6 +993,31 @@ header .container {
   background: var(--color-bg-panel);
 }
 
+/* Download column */
+.sop-table-dl-cell {
+  white-space: nowrap;
+  width: 1%;
+  padding: 0.5rem 0.75rem !important;
+}
+
+.sop-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--pillar-color, var(--color-primary));
+  color: white;
+  transition: opacity var(--transition-fast);
+}
+
+.sop-dl-btn:hover {
+  opacity: 0.82;
+}
+
 /* Steps grid */
 .sop-steps {
   margin-bottom: 2.5rem;
